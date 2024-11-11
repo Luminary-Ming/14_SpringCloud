@@ -1,0 +1,43 @@
+# bootstrap.yml 文件是系统级的资源配置项，application.yml 是用户级的资源配置项
+# 加载优先级顺序：bootstrap.yml > application.properties > application.yml
+# 需导入 spring-cloud-starter-bootstrap 依赖后配置文件才能生效
+spring:
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        # Nacos 的 URL
+        server-addr: localhost:8848
+        # 配置文件格式
+        file-extension: yaml
+        # 配置文件前缀
+        prefix: application-order
+        # 默认分组
+        group: DEFAULT_GROUP
+        # 如果nacos管理的服务的配置文件不再默认的 public 空间下，就需要单独配置namespace配置
+        # 指定对应的名称空间
+        # namespace:
+
+
+# Nacos 配置列表中的配置
+# Data Id：application-order-dev.yaml
+# Group：DEFAULT_GROUP
+# 配置内容：
+# server:
+#   port: 8001
+# spring:
+#   application:
+#     name: order-server
+#   cloud:
+#     # 配置 nacos 注册中心的访问地址
+#     nacos:
+#       server-addr: localhost:8848
+#     sentinel:
+#       transport:
+#         dashboard: 127.0.0.1:2233
+#
+# lol:
+#   username: 亚索
+#   age: 210
+#   address: 艾欧尼亚

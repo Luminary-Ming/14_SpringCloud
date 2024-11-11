@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>demo-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>order-server</module>
+        <module>user-server</module>
+        <module>common-pojo</module>
+    </modules>
+
+    <!-- 导入 SpringBoot 的父工程 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.18</version>
+    </parent>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <!--
+        dependencyManagement 管理依赖
+        <dependencyManagement> 是 Maven 项目中用于统一管理项目依赖的版本的标签。
+        它允许在父模块中定义依赖的版，然后在子模块中引用这些依赖而不需要指定版本号。
+        这样做的好处是可以确保所有模块使用相同版本的依赖，从而避免版本冲突和依赖管理上的混乱。
+        另一个好处是，如果你需要更新某个依赖的版本，只需要在父 POM 的 <dependencyManagement> 部分更新版本号，
+        所有子模块会自动采用新版本，无需在每个子模块中手动更新。
+    -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.8</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2021.0.5.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- 项目中使用公共的依赖，父工程引用，子工程会继承子工程中的依赖 -->
+    <dependencies>
+        <!-- 提供 @Data 注解，减少 POJO 类代码 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.example</groupId>
+        <artifactId>demo-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>order-server</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+
+        <!--
+            sentinel 从流量控制、熔断降级、系统负载保护多个维度保护服务的稳定性：
+             ● 控制服务的请求量，防止因流量过大导致的系统崩溃
+             ● 当调用链路中的某个资源出现不稳定状态时（如调用超时、异常比例升高等），Sentinel会暂时切断对这个资源的调用，
+               以避免局部不稳定因素导致整个系统的崩溃。经过一段时间后，熔断器会进入探测恢复状态，尝试重新调用该资源，
+               如果调用成功，则恢复对该资源的调用。
+             ● Sentinel还提供了系统负载保护的功能，通过监控系统的CPU使用率、内存占用率等指标，当系统负载达到设定的阈值时，
+               Sentinel会自动进行保护处理，如拒绝新的请求、限制部分请求的并发量等，以确保系统的稳定运行。
+        -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+
+        <!-- 将 SpringCloud 应用配置集成到Nacos配置中心，让服务中的配置文件可以在Nacos上配置使用 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+
+        <!-- 开启 SpringCloud 应用程序启动时加载 bootstrap.yml 配置文件 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+            <version>3.1.4</version>
+        </dependency>
+
+        <!--
+            提供服务调用的能力、负载均衡：
+            需要定义一个接口，并使用注解 @FeignClient、@GetMapping、@PostMapping等来指定要调用的服务名称、请求方法、路径和参数等，
+            Spring Cloud就会自动为这些接口生成实现类，并处理HTTP请求的发送和接收。
+        -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <!-- 实现客户端负载均衡的组件 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+
+        <!-- 服务注册到Nacos上，便于服务间的调用与发现 -->
+        <dependency>
+            <groupId>com.alibaba.cloud </groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+        <!-- web启动器 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>common-pojo</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+    </dependencies>
+
+</project>
